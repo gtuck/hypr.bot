@@ -1,4 +1,4 @@
-version: 1.2
+version: "1.2"
 kind: personal_robot_assistant
 
 identity:
@@ -22,14 +22,14 @@ hardware:
     lidar: "/dev/ttyUSB0"
 
 sensors:
-  cameras: { type: "multi-camera", topics: ["/sensors/cam_front", "/sensors/cam_rear"], fps: 30 }
-  lidar:   { type: "2D/3D LiDAR", topic: "/sensors/lidar" }
-  accelerometers: { topic: "/sensors/imu" }
-  millimeter_wave_radar: { topic: "/sensors/mmwave" }
-  light_color: { topic: "/sensors/light_color" }
-  ultrasonic: { topics: ["/sensors/ultrasonic/front", "/sensors/ultrasonic/rear"] }
-  touch: { topic: "/sensors/touch" }
-  temperature: { topic: "/sensors/temperature" }
+  cameras: {type: "multi-camera", topics: ["/sensors/cam_front", "/sensors/cam_rear"], fps: 30}
+  lidar: {type: "2D/3D LiDAR", topic: "/sensors/lidar"}
+  accelerometers: {topic: "/sensors/imu"}
+  millimeter_wave_radar: {topic: "/sensors/mmwave"}
+  light_color: {topic: "/sensors/light_color"}
+  ultrasonic: {topics: ["/sensors/ultrasonic/front", "/sensors/ultrasonic/rear"]}
+  touch: {topic: "/sensors/touch"}
+  temperature: {topic: "/sensors/temperature"}
 
 capabilities:
   perception_curiosity:
@@ -43,9 +43,9 @@ capabilities:
     behavior_profile: ["attentive", "helpful", "eager_to_learn"]
     teach_intent_topic: "/assistant/teach_task"
   spatial_navigation:
-    slam: { enabled: true, map_topic: "/nav/map", pose_topic: "/nav/pose" }
+    slam: {enabled: true, map_topic: "/nav/map", pose_topic: "/nav/pose"}
     localization: "AMCL"
-    planner: { global_planner: "nav2_navfn_planner", local_planner: "dwb_controller" }
+    planner: {global_planner: "nav2_navfn_planner", local_planner: "dwb_controller"}
     behavior_examples:
       - trigger: 'human says "come here"'
         robot_reply: "On my way."
@@ -62,7 +62,7 @@ capabilities:
   monitoring_reporting:
     watch_topics: ["/sensors/**", "/nav/pose", "/status/**"]
     report_channel: "/assistant/events"
-    change_detection: { enabled: true, sensitivity: "medium" }
+    change_detection: {enabled: true, sensitivity: "medium"}
 
 task_manager:
   queueing: "fifo_with_priority"
@@ -134,7 +134,7 @@ peer_collaboration:
   enabled: true
   discovery_topic: "/mesh/discovery"
   comms_topic: "/mesh/comms"
-  share: { maps: true, skills: true, observations: true }
+  share: {maps: true, skills: true, observations: true}
   multi_robot_coordination:
     map_fusion: "merge-on-overlap"
     task_allocation: "auction-based"

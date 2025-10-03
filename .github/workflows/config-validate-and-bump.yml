@@ -77,17 +77,14 @@ jobs:
       - name: Bump platform_version and open PR
         id: bump
         run: |
-          python tools/bump_platform_version.py > bump.log || true
-          if grep -q '::set-output name=branch::' bump.log; then
-            echo "branch=$(sed -n 's/.*::branch:://p' bump.log)" >> $GITHUB_OUTPUT
-            echo "msg=$(sed -n 's/.*::msg:://p' bump.log)" >> $GITHUB_OUTPUT
-          fi
+          python tools/bump_platform_version.py
 
       - name: Create PR
-        if: steps.bump.outputs.branch != ''
+        if: steps.bump.outputs.msg != ''
         uses: peter-evans/create-pull-request@v6
         with:
-          branch: ${{ steps.bump.outputs.branch }}
+          commit-message: ${{ steps.bump.outputs.msg }}
+          branch: auto/platform-version-bump
           title: ${{ steps.bump.outputs.msg }}
           body: "Automated patch bump to platform_version after config change."
           labels: "automation, chore"
