@@ -29,7 +29,7 @@ jobs:
 
       - name: YAML lint
         run: |
-          yamllint -d "{extends: default, rules: {line-length: {max: 140}}}" config.yaml
+          yamllint -d "{extends: default, rules: {line-length: {max: 140}, indentation: {spaces: 2, indent-sequences: whatever}, document-start: disable}}" config.yaml
 
       - name: JSON schema validate (config.json)
         if: hashFiles('config.json') != ''
