@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PersonalRobotAssistantConfig",
+  "type": "object",
+  "required": [
+    "version",
+    "kind",
+    "identity",
+    "hardware",
+    "sensors",
+    "boot_prompts"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$|^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "kind": {
+      "type": "string",
+      "const": "personal_robot_assistant"
+    },
+    "identity": {
+      "type": "object",
+      "required": [
+        "name",
+        "designation",
+        "platform_version"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "designation": {
+          "type": "string"
+        },
+        "platform_version": {
+          "type": "string",
+          "pattern": "^v\\d+\\.\\d+\\.\\d+$"
+        }
+      }
+    },
+    "hardware": {
+      "type": "object"
+    },
+    "sensors": {
+      "type": "object"
+    },
+    "boot_prompts": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}
