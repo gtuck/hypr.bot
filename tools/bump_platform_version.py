@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys, re, json, pathlib, subprocess
+import sys, re, json, pathlib, subprocess, os
 
 try:
     import yaml  # type: ignore
@@ -46,16 +46,12 @@ def main():
         p = repo / cfg
         if cfg.endswith(".yaml"): new_versions.append(update_yaml(p))
         else: new_versions.append(update_json(p))
-    # commit
-    subprocess.check_call(["git", "config", "user.name", "robot-bot"])
-    subprocess.check_call(["git", "config", "user.email", "robot-bot@users.noreply.github.com"])
-    subprocess.check_call(["git", "checkout", "-b", "auto/platform-version-bump"], stderr=subprocess.DEVNULL)
-    subprocess.check_call(["git", "add"] + touched)
+    # Output for GitHub Actions
     msg = f"chore: bump platform_version to {new_versions[-1]}"
-    subprocess.check_call(["git", "commit", "-m", msg])
-    subprocess.check_call(["git", "push", "-u", "origin", "auto/platform-version-bump"])
-    print(f"::set-output name=branch::auto/platform-version-bump")
-    print(f"::set-output name=msg::{msg}")
+    github_output = pathlib.Path(os.environ.get("GITHUB_OUTPUT", "/dev/stdout"))
+    with github_output.open("a") as f:
+        f.write(f"msg={msg}\n")
+        f.write(f"version={new_versions[-1]}\n")
 
 if __name__ == "__main__":
     main()
