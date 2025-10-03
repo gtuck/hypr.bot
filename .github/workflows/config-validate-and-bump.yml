@@ -78,8 +78,10 @@ jobs:
         id: bump
         run: |
           python tools/bump_platform_version.py > bump.log || true
-          echo "branch=$(grep '::set-output name=branch::' bump.log | sed 's/.*::branch:://')" >> $GITHUB_OUTPUT || true
-          echo "msg=$(grep '::set-output name=msg::' bump.log | sed 's/.*::msg:://')" >> $GITHUB_OUTPUT || true
+          if grep -q '::set-output name=branch::' bump.log; then
+            echo "branch=$(sed -n 's/.*::branch:://p' bump.log)" >> $GITHUB_OUTPUT
+            echo "msg=$(sed -n 's/.*::msg:://p' bump.log)" >> $GITHUB_OUTPUT
+          fi
 
       - name: Create PR
         if: steps.bump.outputs.branch != ''
@@ -88,4 +90,4 @@ jobs:
           branch: ${{ steps.bump.outputs.branch }}
           title: ${{ steps.bump.outputs.msg }}
           body: "Automated patch bump to platform_version after config change."
-          labels: ["automation", "chore"]
+          labels: "automation, chore"
