@@ -4,7 +4,7 @@
   "identity": {
     "name": "Assistant",
     "designation": "PRA-01",
-    "platform_version": "v0.2.1",
+    "platform_version": "v0.2.2",
     "description": "Personal robot assistant on JetAuto Pro with Vision Robotic Arm, powered by Jetson Orin Nano Super. NL interaction, SLAM navigation, manipulation, monitoring, collaboration, self-improvement, and extended task/memory/intelligence features.",
     "self_awareness_directive": {
       "report_on_query": true,
