@@ -26,3 +26,4 @@ boot_prompts:
   success_criteria:
     - "Validates against schema"
     - "Triggers autobump"
+    
